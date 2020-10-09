@@ -1,0 +1,15 @@
+name: ParkourPlugin
+main: com.mooo.corporatepoophole.ParkourPlugin.Main
+version: 1.1.0
+author: SuperNiin64
+commands:
+  parkour:
+    description: Enters or exits Parkour Mode.
+    usage: /parkour
+    permission: ParkourPlugin.parkour
+    permission-message: You don't have permission to enter Parkour Mode.
+  practice:
+    description: Enters or exits Practice Mode.
+    usage: /practice
+    permission: ParkourPlugin.practice
+    permission-message: You don't have permission to enter Practice Mode.
