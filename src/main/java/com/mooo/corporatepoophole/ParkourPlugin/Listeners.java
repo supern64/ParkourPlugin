@@ -189,7 +189,7 @@ public class Listeners implements Listener {
         if (isInCourse.get(playerID)) {
             player.sendMessage(ChatColor.AQUA + "You died! Returning to checkpoint.");
             attempts.put(playerID, (int)attempts.get(playerID) + 1);
-        } else if (isInCourse.get(playerID)) {
+        } else if (isInPracticeMode.get(playerID)) {
             player.sendMessage(ChatColor.AQUA + "You died! Returning to spawnpoint.");
         }
     }
@@ -200,7 +200,7 @@ public class Listeners implements Listener {
         HashMap<UUID, Boolean> isInCourse = context.get("isInCourse");
         HashMap<UUID, Boolean> isInPracticeMode = context.get("isInPracticeMode");
         HashMap respawnPoints = context.get("respawnPoints");
-        if (isInCourse.get(playerID) && isInPracticeMode.get(playerID)) {
+        if (isInCourse.get(playerID) || isInPracticeMode.get(playerID)) {
             event.setRespawnLocation((Location) respawnPoints.get(playerID));
         }
     }
@@ -209,7 +209,7 @@ public class Listeners implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         HashMap<UUID, Number> attempts = context.get("attempts");
         HashMap<UUID, Number> eventCooldown = context.get("eventCooldown");
-        HashMap<UUID, Boolean> isInMode = context.get("isInParkourMode");
+        HashMap<UUID, Boolean> isInCourse = context.get("isInCourse");
         HashMap<UUID, Boolean> isInPracticeMode = context.get("isInPracticeMode");
         HashMap respawnPoints = context.get("respawnPoints");
         Player player = event.getPlayer();
@@ -220,7 +220,7 @@ public class Listeners implements Listener {
             if (itemName == null) {
                 return;
             }
-            if (isInMode.get(playerID)) {
+            if (isInCourse.get(playerID)) {
                 if (item.getType() == Material.COMPASS && itemName.equals("Return to Checkpoint")) {
                     event.setCancelled(true);
                     if (respawnPoints.get(playerID) == null) {
