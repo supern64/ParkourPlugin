@@ -26,13 +26,7 @@ public class Main extends JavaPlugin {
         BukkitTask task = new TimerTask(this, context).runTaskTimerAsynchronously(this, 0, 20);
 
         for (Player p : Bukkit.getOnlinePlayers()) {
-            context.get("isInParkourMode").put(p.getUniqueId(), false);
-            context.get("isInPracticeMode").put(p.getUniqueId(), false);
-            context.get("isInCourse").put(p.getUniqueId(), false);
-            context.get("times").put(p.getUniqueId(), 0);
-            context.get("respawnPoints").put(p.getUniqueId(), null);
-            context.get("attempts").put(p.getUniqueId(), 0);
-            context.get("eventCooldown").put(p.getUniqueId(), 0);
+            Utils.initPlayerData(context, p);
         }
     }
 

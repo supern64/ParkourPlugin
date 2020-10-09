@@ -28,11 +28,11 @@ public class Listeners implements Listener {
     // handling block detection
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
-        HashMap<UUID, Boolean> isInMode = (HashMap)context.get("isInParkourMode");
-        HashMap<UUID, Boolean> isInCourse = (HashMap)context.get("isInCourse");
-        HashMap<UUID, Number> attempts = (HashMap)context.get("attempts");
-        HashMap<UUID, Number> times = (HashMap)context.get("times");
-        HashMap respawnPoints = (HashMap)context.get("respawnPoints");
+        HashMap<UUID, Boolean> isInMode = context.get("isInParkourMode");
+        HashMap<UUID, Boolean> isInCourse = context.get("isInCourse");
+        HashMap<UUID, Number> attempts = context.get("attempts");
+        HashMap<UUID, Number> times = context.get("times");
+        HashMap respawnPoints = context.get("respawnPoints");
         HashMap<UUID, Number> eventCooldown = context.get("eventCooldown");
         Player player = event.getPlayer();
         UUID playerID = player.getUniqueId();
@@ -105,7 +105,7 @@ public class Listeners implements Listener {
     // anti drop
     @EventHandler
     public void onPlayerDropItem(PlayerDropItemEvent event) {
-        HashMap<UUID, Boolean> isInCourse = (HashMap)context.get("isInCourse");
+        HashMap<UUID, Boolean> isInCourse = context.get("isInCourse");
         HashMap<UUID, Boolean> isInPracticeMode = context.get("isInPracticeMode");
         Player player = event.getPlayer();
         UUID playerID = player.getUniqueId();
@@ -125,7 +125,7 @@ public class Listeners implements Listener {
     }
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        HashMap<UUID, Boolean> isInCourse = (HashMap)context.get("isInCourse");
+        HashMap<UUID, Boolean> isInCourse = context.get("isInCourse");
         HashMap<UUID, Boolean> isInPracticeMode = context.get("isInPracticeMode");
         if (event.getWhoClicked() instanceof Player) {
             Player player = (Player)event.getWhoClicked();
@@ -154,9 +154,9 @@ public class Listeners implements Listener {
     // commit die and respawn
     @EventHandler
     public void onDamage(EntityDamageEvent event) {
-        HashMap<UUID, Boolean> isInCourse = (HashMap)context.get("isInCourse");
+        HashMap<UUID, Boolean> isInCourse = context.get("isInCourse");
         HashMap<UUID, Boolean> isInPracticeMode = context.get("isInPracticeMode");
-        HashMap<UUID, Number> attempts = (HashMap)context.get("attempts");
+        HashMap<UUID, Number> attempts = context.get("attempts");
         if (event.getEntity() instanceof Player) {
             Player player = (Player)event.getEntity();
             UUID playerID = player.getUniqueId();
@@ -165,7 +165,7 @@ public class Listeners implements Listener {
                     event.setCancelled(true);
                     player.setHealth(20);
                     player.setSaturation(20);
-                    HashMap respawnPoints = (HashMap) context.get("respawnPoints");
+                    HashMap respawnPoints = context.get("respawnPoints");
                     player.teleport((Location) respawnPoints.get(playerID));
                     player.setFireTicks(0);
                     if (isInCourse.get(playerID)) {
@@ -181,9 +181,9 @@ public class Listeners implements Listener {
     }
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        HashMap<UUID, Boolean> isInCourse = (HashMap)context.get("isInCourse");
+        HashMap<UUID, Boolean> isInCourse = context.get("isInCourse");
         HashMap<UUID, Boolean> isInPracticeMode = context.get("isInPracticeMode");
-        HashMap<UUID, Number> attempts = (HashMap)context.get("attempts");
+        HashMap<UUID, Number> attempts = context.get("attempts");
         Player player = event.getEntity();
         UUID playerID = player.getUniqueId();
         if (isInCourse.get(playerID)) {
@@ -197,9 +197,9 @@ public class Listeners implements Listener {
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
         UUID playerID = player.getUniqueId();
-        HashMap<UUID, Boolean> isInCourse = (HashMap)context.get("isInCourse");
+        HashMap<UUID, Boolean> isInCourse = context.get("isInCourse");
         HashMap<UUID, Boolean> isInPracticeMode = context.get("isInPracticeMode");
-        HashMap respawnPoints = (HashMap) context.get("respawnPoints");
+        HashMap respawnPoints = context.get("respawnPoints");
         if (isInCourse.get(playerID) && isInPracticeMode.get(playerID)) {
             event.setRespawnLocation((Location) respawnPoints.get(playerID));
         }
@@ -207,11 +207,11 @@ public class Listeners implements Listener {
     // hotbar
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        HashMap<UUID, Number> attempts = (HashMap)context.get("attempts");
+        HashMap<UUID, Number> attempts = context.get("attempts");
         HashMap<UUID, Number> eventCooldown = context.get("eventCooldown");
         HashMap<UUID, Boolean> isInMode = context.get("isInParkourMode");
         HashMap<UUID, Boolean> isInPracticeMode = context.get("isInPracticeMode");
-        HashMap respawnPoints = (HashMap) context.get("respawnPoints");
+        HashMap respawnPoints = context.get("respawnPoints");
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
         UUID playerID = player.getUniqueId();
