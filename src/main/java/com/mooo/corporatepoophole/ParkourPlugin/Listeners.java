@@ -131,13 +131,10 @@ public class Listeners implements Listener {
             Player player = (Player)event.getWhoClicked();
             UUID playerID = player.getUniqueId();
             ItemStack item = event.getCurrentItem();
-            if (item == null) {
+            if (item == null || item.getItemMeta() == null || item.getItemMeta().getDisplayName() == null) {
                 return;
             }
             String itemName = item.getItemMeta().getDisplayName();
-            if (itemName == null) {
-                return;
-            }
             if (isInCourse.get(playerID)) {
                 if ((itemName.equals("Return to Checkpoint") && item.getType() == Material.COMPASS) || (itemName.equals("Quit current Parkour") && item.getType() == Material.ACACIA_DOOR_ITEM)) {
                     event.setCancelled(true);
@@ -256,6 +253,12 @@ public class Listeners implements Listener {
     // setting playerdata
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        Utils.initPlayerData(context, player);
+        player.getInventory().clear();
+    }
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         Utils.initPlayerData(context, player);
         player.getInventory().clear();
