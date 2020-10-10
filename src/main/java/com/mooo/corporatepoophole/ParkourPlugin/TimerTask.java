@@ -18,13 +18,11 @@ public class TimerTask extends BukkitRunnable {
     }
     @Override
     public void run() {
-        HashMap<UUID, Number> times = (HashMap<UUID, Number>)context.get("times");
-        HashMap<UUID, Number> attempts = (HashMap<UUID, Number>)context.get("attempts");
-        HashMap<UUID, Boolean> isInCourse = (HashMap<UUID, Boolean>)context.get("isInCourse");
+        HashMap<UUID, Number> times = context.get("times");
+        HashMap<UUID, Number> attempts = context.get("attempts");
+        HashMap<UUID, Boolean> isInCourse = context.get("isInCourse");
         HashMap<UUID, Number> eventCooldown = context.get("eventCooldown");
 
-        ActionBar bar = new ActionBar("");
-        bar.sendToAll();
         for (Map.Entry<UUID, Number> time : times.entrySet()) {
             if (isInCourse.get(time.getKey())) {
                 time.setValue((int)time.getValue() + 1);
@@ -33,7 +31,7 @@ public class TimerTask extends BukkitRunnable {
                 int second = (int)time.getValue() % 60;
                 interpretedTime = String.format("%02d", minute) + ":" + String.format("%02d", second);
 
-                bar = new ActionBar(ChatColor.AQUA + "Time spent: " + interpretedTime + " | Fails: " + attempts.get(time.getKey()));
+                ActionBar bar = new ActionBar(ChatColor.AQUA + "Time spent: " + interpretedTime + " | Fails: " + attempts.get(time.getKey()));
                 bar.send(plugin.getServer().getPlayer(time.getKey()));
             }
         }

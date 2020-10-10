@@ -42,7 +42,7 @@ public class Listeners implements Listener {
                 if ((int)eventCooldown.get(playerID) > 0) {
                     return;
                 }
-                if (isInCourse.get(playerID) == false) {
+                if (!isInCourse.get(playerID)) {
                     isInCourse.put(playerID, true);
 
                     attempts.put(playerID, 0);

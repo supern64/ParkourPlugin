@@ -1,5 +1,6 @@
 package com.mooo.corporatepoophole.ParkourPlugin;
 
+import io.github.theluca98.textapi.ActionBar;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -23,6 +24,7 @@ public class Utils {
         respawnPoints.put(playerID, null);
         attempts.put(playerID, 0);
         eventCooldown.put(playerID, 0);
+        Utils.clearActionBar(player);
     }
     public static void resetCourse(HashMap<String, HashMap> context, Player player) {
         HashMap<UUID, Boolean> isInCourse = context.get("isInCourse");
@@ -35,5 +37,10 @@ public class Utils {
         times.put(playerID, 0);
         respawnPoints.put(playerID, null);
         attempts.put(playerID, 0);
+        Utils.clearActionBar(player);
+    }
+    public static void clearActionBar(Player player) {
+        ActionBar bar = new ActionBar("");
+        bar.send(player);
     }
 }

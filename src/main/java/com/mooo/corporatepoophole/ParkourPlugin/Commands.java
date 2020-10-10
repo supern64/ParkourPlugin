@@ -20,12 +20,9 @@ public class Commands {
             return true;
         }
         Player player = (Player) sender;
-        HashMap<UUID, Boolean> isInMode = (HashMap)context.get("isInParkourMode");
+        HashMap<UUID, Boolean> isInMode = context.get("isInParkourMode");
         HashMap<UUID, Boolean> isInPracticeMode = context.get("isInPracticeMode");
-        HashMap<UUID, Boolean> isInCourse = (HashMap)context.get("isInCourse");
-        HashMap<UUID, Number> attempts = (HashMap)context.get("attempts");
-        HashMap<UUID, Number> times = (HashMap)context.get("times");
-        HashMap respawnPoints = (HashMap)context.get("respawnPoints");
+        HashMap respawnPoints = context.get("respawnPoints");
         HashMap<UUID, Number> eventCooldown = context.get("eventCooldown");
         UUID playerID = player.getUniqueId();
         if (cmd.getName().equalsIgnoreCase("parkour")) {
@@ -40,6 +37,7 @@ public class Commands {
                 sender.sendMessage(ChatColor.AQUA + "You've exited Parkour Mode!");
             } else {
                 isInMode.put(playerID, true);
+                Utils.resetCourse(context, player);
                 player.getInventory().clear();
                 sender.sendMessage(ChatColor.AQUA + "You've entered Parkour Mode!");
             }
