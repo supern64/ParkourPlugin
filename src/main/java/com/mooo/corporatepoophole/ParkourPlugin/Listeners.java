@@ -252,15 +252,13 @@ public class Listeners implements Listener {
     }
     // setting playerdata
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        Utils.initPlayerData(context, player);
-        player.getInventory().clear();
-    }
-    @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
+        HashMap<UUID, Boolean> isInCourse = context.get("isInCourse");
+        HashMap<UUID, Boolean> isInPracticeMode = context.get("isInPracticeMode");
+        if (isInCourse.get(player.getUniqueId()) || isInPracticeMode.get(player.getUniqueId())) {
+            player.getInventory().clear();
+        }
         Utils.initPlayerData(context, player);
-        player.getInventory().clear();
     }
 }
