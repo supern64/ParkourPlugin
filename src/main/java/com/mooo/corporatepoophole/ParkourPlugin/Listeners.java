@@ -252,6 +252,11 @@ public class Listeners implements Listener {
     }
     // setting playerdata
     @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        Utils.initPlayerData(context, player);
+    }
+    @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         HashMap<UUID, Boolean> isInCourse = context.get("isInCourse");
